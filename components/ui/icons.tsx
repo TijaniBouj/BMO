@@ -25,7 +25,7 @@ function IconOpenAI({ className, ...props }: React.ComponentProps<'img'>) {
   return (
      <img
       src="/bmo.svg"
-      alt="BMO icon"
+      alt="icon bemo"
       className={cn('size-20000', className)}
    
       {...props}
@@ -90,7 +90,7 @@ function IconUser({ className, ...props }: React.ComponentProps<'img'>) {
   return (
     <img
     src="/boy.svg"
-    alt="BMO icon"
+    alt="BOY icon"
     className={cn('size-20000', className)}
  
     {...props}
