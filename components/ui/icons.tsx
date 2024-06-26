@@ -24,7 +24,7 @@ export default IconNextChat;
 function IconOpenAI({ className, ...props }: React.ComponentProps<'img'>) {
   return (
      <img
-      src="/bmo.svg"
+      src="/BMO.svg"
       alt="icon bemo"
       className={cn('size-20000', className)}
    
