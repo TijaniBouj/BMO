@@ -1,49 +1,52 @@
 // hooks/useSpeechRecognition.ts
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
 declare global {
   interface Window {
-    SpeechRecognition: any;
-    webkitSpeechRecognition: any;
+    SpeechRecognition: any
+    webkitSpeechRecognition: any
   }
 }
 
-export const useSpeechRecognition = (onSubmit: (transcript: string) => void) => {
-  const [listening, setListening] = useState(false);
-  const [transcript, setTranscript] = useState('');
+export const useSpeechRecognition = (
+  onSubmit: (transcript: string) => void
+) => {
+  const [listening, setListening] = useState(false)
+  const [transcript, setTranscript] = useState('')
 
   const resetTranscript = () => {
-    setTranscript('');
-  };
+    setTranscript('')
+  }
 
   useEffect(() => {
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.continuous = true;
-    recognition.interimResults = true;
+    const recognition = new (window.SpeechRecognition ||
+      window.webkitSpeechRecognition)()
+    recognition.continuous = true
+    recognition.interimResults = true
 
     recognition.onresult = (event: any) => {
       const interimTranscript = Array.from(event.results)
         .map((result: any) => result[0])
         .map((result: any) => result.transcript)
-        .join('');
-      setTranscript(interimTranscript);
-    };
+        .join('')
+      setTranscript(interimTranscript)
+    }
 
     recognition.onend = () => {
-      setListening(false);
-      onSubmit(transcript);
-    };
+      setListening(false)
+      onSubmit(transcript)
+    }
 
     if (listening) {
-      recognition.start();
+      recognition.start()
     } else {
-      recognition.stop();
+      recognition.stop()
     }
 
     return () => {
-      recognition.stop();
-    };
-  }, [listening, onSubmit]);
+      recognition.stop()
+    }
+  }, [listening, onSubmit])
 
-  return { transcript, listening, setListening, resetTranscript };
-};
+  return { transcript, listening, setListening, resetTranscript }
+}
