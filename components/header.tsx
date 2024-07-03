@@ -4,12 +4,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { auth } from '@/auth'
 import { Button, buttonVariants } from '@/components/ui/button'
-import {
-  
-  IconNextChat,
-  IconSeparator,
-  
-} from '@/components/ui/icons'
+import { IconNextChat, IconSeparator } from '@/components/ui/icons'
 import { UserMenu } from '@/components/user-menu'
 import { SidebarMobile } from './sidebar-mobile'
 import { SidebarToggle } from './sidebar-toggle'
@@ -36,11 +31,18 @@ async function UserOrLogin() {
       <div className="flex items-center">
         <IconSeparator className="size-6 text-muted-foreground/50" />
         {session?.user ? (
-          <UserMenu user={session.user} />
+          <>
+            <UserMenu user={session.user} />
+            <Button variant="link" asChild className="-ml-2">
+              <Link href="/dashboard">Dashboard</Link>
+            </Button>
+          </>
         ) : (
-          <Button variant="link" asChild className="-ml-2">
-            <Link href="/login">Login</Link>
-          </Button>
+          <>
+            <Button variant="link" asChild className="-ml-2">
+              <Link href="/login">Login</Link>
+            </Button>
+          </>
         )}
       </div>
     </>
@@ -55,7 +57,6 @@ export function Header() {
           <UserOrLogin />
         </React.Suspense>
       </div>
-     
     </header>
   )
 }

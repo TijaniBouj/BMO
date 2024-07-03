@@ -11,10 +11,17 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user
       const isOnLoginPage = nextUrl.pathname.startsWith('/login')
       const isOnSignupPage = nextUrl.pathname.startsWith('/signup')
+      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard')
+      const isOnChat = nextUrl.pathname.startsWith('/chat')
+      const isOnRootPage = nextUrl.pathname === '/'
 
       if (isLoggedIn) {
-        if (isOnLoginPage || isOnSignupPage) {
-          return Response.redirect(new URL('/', nextUrl))
+        if (isOnLoginPage || isOnSignupPage || isOnRootPage) {
+          return Response.redirect(new URL('/chat', nextUrl))
+        }
+      } else {
+        if (isOnDashboard || isOnChat) {
+          return Response.redirect(new URL('/login', nextUrl))
         }
       }
 
